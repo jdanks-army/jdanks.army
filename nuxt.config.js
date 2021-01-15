@@ -42,6 +42,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    ["nuxt-rfg-icon", { masterPicture: "static/defaultAvatar.png" }],
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
