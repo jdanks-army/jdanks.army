@@ -12,7 +12,8 @@
     "@nuxtjs/axios": "^5.12.2",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "nuxt-rfg-icon": "^0.6.4"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2"
