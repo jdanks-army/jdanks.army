@@ -1,7 +1,7 @@
 <template>
 
-<v-card width="100%" height="60" elevation="6" color="grey darken-4" :href="link">
-  <v-img :lazy-src="lazyThumbnail" :src="data.avatar" width="60" height="60" class="align-end float-left" :class="{monochrome: !live}" contain />
+<v-card width="100%" height="60" elevation="6" color="grey darken-4" :class="{monochrome: !live}" :href="link">
+  <v-img :src="data.avatar || defaultAvatar" width="60" height="60" class="align-end float-left" contain />
   <div class="">
     <v-card-title class="user-info" :class="{'grey--text': !live, 'offline-title': !live, title: live}">
       <span class="user-info-item">{{data.name}}</span>
@@ -9,7 +9,7 @@
       <v-chip tag="span" v-if="live" class="ml-2 user-info-item" pill color="red" x-small> LIVE </v-chip>
       <v-chip tag="span" v-else class="ml-2 user-info-item" pill color="grey" outlined x-small> OFFLINE </v-chip>
 
-      <v-img max-width="18px" contain :src="platformImage" class="ml-2 user-info-item" :class="{monochrome: !live}" />
+      <v-img max-width="18px" contain :src="platformImage" class="ml-2 user-info-item" />
     </v-card-title>
     <v-card-subtitle class="subtitle text-truncate" v-if="live">{{data.title}}</v-card-subtitle>
   </div>
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      lazyThumbnail: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAp0lEQVRoge3RsQnCUABF0d+LlSAIbuAGFtaxskrnBOkdRFBTBgt3ENI5RMAB3CNDCOYhp77NhVM29alfdcvdY1udX+vn8TB8rs29nc9u78t+0XT/1svUA7/uZeoBwoQJEyZMmHDuIGHChAkTTh4kTJgwYcLJg4QJEyZMOHmQMGHChAknDxImTJgw4eRBwoQJEyacPEiYMGHChJMHCRMmTJhw8iDhL/sISEfh9/wviAUAAAAASUVORK5CYII="
+      defaultAvatar: "/defaultAvatar.png",
     }
   },
   computed: {
@@ -45,6 +45,7 @@ export default {
           ['dlive', '/dlive.png'],
           ['youtube', '/youtube.png'],
           ['bitwave', '/bitwave.svg'],
+          ['robotstreamer', '/robotstreamer.png'],
       ])
       return map.get(this.data.platform);
     },
@@ -54,6 +55,7 @@ export default {
         ['dlive', 'dlive.tv/'],
         ['youtube', 'youtube.com/channel/'],
         ['bitwave', 'bitwave.tv/'],
+        ['robotstreamer', 'robotstreamer.com/robot/'],
       ]);
       return 'https://' + map.get(this.data.platform) + this.data.id;
     }
@@ -98,14 +100,15 @@ export default {
     padding-top: 14px !important;
   }
 
-  .monochrome {
+  .monochrome > * {
     filter: grayscale(100%);
     transition: all .15s ease-in-out;
-
-    &:hover {
-      filter: grayscale(66%);
-    }
   }
+
+  .monochrome:hover > * {
+    filter: grayscale(66%);
+  }
+
 
   .subtitle {
     padding: 0 !important;
