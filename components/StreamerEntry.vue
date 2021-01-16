@@ -46,6 +46,7 @@ export default {
           ['youtube', '/youtube.png'],
           ['bitwave', '/bitwave.svg'],
           ['robotstreamer', '/robotstreamer.png'],
+          ['trovo', '/trovo.png'],
       ])
       return map.get(this.data.platform);
     },
@@ -56,6 +57,7 @@ export default {
         ['youtube', 'youtube.com/channel/'],
         ['bitwave', 'bitwave.tv/'],
         ['robotstreamer', 'robotstreamer.com/robot/'],
+        ['trovo', 'trovo.live/'],
       ]);
       return 'https://' + map.get(this.data.platform) + this.data.id;
     }
