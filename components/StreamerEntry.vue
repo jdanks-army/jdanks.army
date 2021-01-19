@@ -59,33 +59,13 @@ export default {
         ['robotstreamer', 'robotstreamer.com/robot/'],
         ['trovo', 'trovo.live/'],
       ]);
-      return 'https://' + map.get(this.data.platform) + this.data.id;
+      return 'https://' + map.get(this.data.platform) + this.data.userId;
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  $max-lines: 4;
-  $line-height: 2rem;
-
-  .multiline-truncate {
-    position: relative;
-    max-height: $line-height * $max-lines;
-    overflow: hidden;
-
-    &:after {
-      content: "";
-      text-align: right;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 50%;
-      height: $line-height;
-      background: linear-gradient(to right, #22222200, #222222FF 50%);
-    }
-  }
-
   .title {
     padding: 0 !important;
     margin: 0 !important;
@@ -102,13 +82,15 @@ export default {
     padding-top: 14px !important;
   }
 
-  .monochrome > * {
-    filter: grayscale(100%);
-    transition: all .15s ease-in-out;
-  }
+  .monochrome {
+    & > * {
+      transition: all .15s ease-in-out;
+      filter: grayscale(100%);
+    }
 
-  .monochrome:hover > * {
-    filter: grayscale(66%);
+    &:hover > * {
+      filter: grayscale(66%);
+    }
   }
 
 
