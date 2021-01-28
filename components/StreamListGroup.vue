@@ -11,8 +11,8 @@
 
     <!--Stream list-->
     <transition-group name="scroll-x-transition">
-      <v-row justify="center" align="center" v-for="(streamer, i) in $props.streamers" :key="streamer.id">
-        <lazy-streamer-entry :data="streamer" :live="streamer.live" class="my-3"></lazy-streamer-entry>
+      <v-row justify="center" align="center" v-for="streamer in $props.streamers" :key="streamer.id">
+        <streamer-entry :data="streamer" :live="streamer.live" class="my-3"></streamer-entry>
       </v-row>
     </transition-group>
   </v-container>
@@ -24,6 +24,11 @@ export default {
       'streamers',
       'dividerTitle',
       'headerStyling'
-  ]
+  ],
+  data() {
+    return {
+      init: true,
+    }
+  }
 }
 </script>

@@ -1,28 +1,41 @@
 <template>
   <v-container fluid tag="div">
+
     <v-row justify="center">
       <v-col class="mt-n5 content" tag="v-card">
+
+        <v-row tag="v-container" v-if="loading" class="mt-4 mb-2 d-flex align-center" style="width: 100%;">
+          <v-divider class="ml-3" />
+          <span class="mx-5 mt-n1 text-overline grey--text"> online streams </span>
+          <v-divider class="mr-3" />
+        </v-row>
         <v-skeleton-loader
             type="list-item-avatar-two-line"
             :loading="loading"
             :elevation="0"
             dark
-            :class="{'pt-5 mt-2': loading}"
-            transition="fade-transition"
+            :class="{'mt-n4': loading}"
+            transition="v-fade-transition"
         >
+
           <v-container tag="div">
             <stream-list-group :streamers="online" divider-title="Online streams" header-styling="grey--text" class="mt-n5" />
             <stream-list-group :streamers="offline" divider-title="Offline streams" header-styling="accent--text" />
           </v-container>
+
         </v-skeleton-loader>
-        <v-skeleton-loader v-for="i in 6" :key="i" type="list-item-avatar-two-line" v-if="loading" :elevation="0" />
+
+        <v-skeleton-loader v-for="i in 22" :key="i" type="list-item-avatar-two-line" v-if="loading" :elevation="0" />
+
       </v-col>
     </v-row>
+
     <v-card tag="div" class="pa-2 lastUpdated" @click="update" outlined>
       <v-skeleton-loader :loading="loading" type="text" width="200px">
         Last updated at {{lastUpdated}}
       </v-skeleton-loader>
     </v-card>
+
   </v-container>
 </template>
 
@@ -74,6 +87,7 @@ export default {
 
   async fetch() {
     await this.update();
+    // setTimeout(() => this.loading = false, 0);
     this.$nextTick(() => this.loading = false);
   },
 }
