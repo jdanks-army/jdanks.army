@@ -19,6 +19,7 @@
         >
 
           <v-container tag="div">
+            <featured-streamer v-if="featuredStreamer" :streamer="featuredStreamer"/>
             <stream-list-group :streamers="online" divider-title="Online streams" header-styling="grey--text" class="mt-n5" />
             <stream-list-group :streamers="offline" divider-title="Offline streams" header-styling="accent--text" />
           </v-container>
@@ -41,9 +42,13 @@
 
 <script>
 import StreamListGroup from '~/components/StreamListGroup';
+import StreamerEntry from "../components/StreamerEntry";
+import FeaturedStreamer from "../components/FeaturedStreamer";
 
 export default {
   components: {
+    FeaturedStreamer,
+    StreamerEntry,
     StreamListGroup
   },
 
@@ -51,8 +56,12 @@ export default {
     return {
       streamer_data: [],
       lastUpdated: "",
+
+      featuredStreamer: null,
+
       online: [],
       offline: [],
+
       loading: true,
       updateInterval: null,
     };
@@ -71,6 +80,8 @@ export default {
           (x.live ? this.online : this.offline).push(x)
       );
 
+      this.featuredStreamer = this.online.filter(x => !!x.featuredRank)
+          .sort((l, r) => l.featuredRank - r.featuredRank)[0];
       this.online.sort((l, r) => r.viewers - l.viewers);
     },
 
@@ -87,7 +98,6 @@ export default {
 
   async fetch() {
     await this.update();
-    // setTimeout(() => this.loading = false, 0);
     this.$nextTick(() => this.loading = false);
   },
 }

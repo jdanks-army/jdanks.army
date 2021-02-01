@@ -1,6 +1,7 @@
 <template>
 
 <v-card width="100%" height="60" elevation="6" color="grey darken-4" :class="{monochrome: !live}" :href="link">
+  <slot/>
   <v-img :src="data.avatar || defaultAvatar" width="60" height="60" class="align-end float-left" contain />
   <div class="">
     <v-card-title class="user-info" :class="{'grey--text': !live, 'offline-title': !live, title: live}">
@@ -9,7 +10,8 @@
       <v-chip tag="span" v-if="live" class="ml-2 user-info-item" pill color="red" x-small> LIVE </v-chip>
       <v-chip tag="span" v-else class="ml-2 user-info-item" pill color="grey" outlined x-small> OFFLINE </v-chip>
 
-      <v-img max-width="18px" contain :src="platformImage" class="ml-2 user-info-item" />
+      <v-img max-width="18px" contain :src="platformImage" class="ml-2 user-info-item rounded-left" />
+      <v-icon v-if="unread" color="warning" class="ml-1">mdi-circle-medium</v-icon>
     </v-card-title>
     <v-card-subtitle class="subtitle text-truncate" v-if="live">{{data.title}}</v-card-subtitle>
   </div>
@@ -32,6 +34,11 @@ export default {
       type: Boolean,
       required: false,
     },
+    unread: {
+      type: Boolean,
+      required: false,
+      default: false,
+    }
   },
   data() {
     return {
