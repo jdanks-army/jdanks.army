@@ -67,6 +67,8 @@ export default {
     };
   },
 
+  fetchOnServer: false,
+
   async mounted() {
     this.updateInterval = setInterval(this.update, 5 * 60 * 1000);
   },
