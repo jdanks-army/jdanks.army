@@ -2,11 +2,7 @@
 
   <v-container fluid>
 
-    <v-row class="mb-2 d-flex align-center" style="width: 100%;">
-      <v-divider class="ml-3" />
-      <span class="mx-5 text-overline rainbow"> featured stream </span>
-      <v-divider class="mr-3" />
-    </v-row>
+    <stream-list-header class="rainbow mt-auto" divider-title="featured stream"/>
 
     <streamer-entry :data="streamer" :live="streamer.live" :unread="true" class="my-5 featured">
       <div v-for="i in 3" class="ring-animation" :style="`animation-delay: ${0.2 * i}s;`"/>
@@ -17,7 +13,10 @@
 </template>
 
 <script>
+import StreamListHeader from "./StreamListHeader";
+import StreamerEntry from "./StreamerEntry";
 export default {
+  components: {StreamListHeader, StreamerEntry},
   name: "FeaturedStreamer",
   props: ["streamer"]
 }
