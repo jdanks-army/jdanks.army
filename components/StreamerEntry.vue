@@ -1,22 +1,55 @@
 <template>
 
-<v-card width="100%" height="60" elevation="6" color="grey darken-4" :class="{monochrome: !live}" :href="link">
+<v-card
+    width="100%"
+    :height="size"
+
+    elevation="6"
+
+    color="grey darken-4"
+
+    :class="{monochrome: !live}"
+    :href="link"
+>
+
   <slot/>
-  <v-img :src="data.avatar || defaultAvatar" width="60" height="60" class="align-end float-left" contain />
-  <div class="">
-    <v-card-title class="user-info" :class="{'grey--text': !live, 'offline-title': !live, title: live}">
-      <span class="user-info-item">{{data.name}}</span>
 
-      <v-chip tag="span" v-if="live" class="ml-2 user-info-item" pill color="red" x-small> LIVE </v-chip>
-      <v-chip tag="span" v-else class="ml-2 user-info-item" pill color="grey" outlined x-small> OFFLINE </v-chip>
+  <div class="d-flex flex-row">
 
-      <v-img max-width="18px" contain :src="platformImage" class="ml-2 user-info-item rounded-left" />
-      <v-icon v-if="unread" color="warning" class="ml-1">mdi-circle-medium</v-icon>
-    </v-card-title>
-    <v-card-subtitle class="subtitle text-truncate" v-if="live">{{data.title}}</v-card-subtitle>
-  </div>
-  <div v-if="live" class="float-right viewers">
-    <v-icon color="red">mdi-account</v-icon>{{data.viewers}}
+    <aside class="mr-2">
+      <v-img
+          :src="data.avatar || defaultAvatar"
+          :width="size" :height="size"
+          class="rounded-left"
+      />
+    </aside>
+
+    <main
+        class="flex-grow-hsafe hide-overflow"
+        :class="live ? 'd-flex flex-column' : 'align-content-center-inline'"
+    >
+      <div class="title align-content-center-inline">
+        <v-img width="18px" contain eager :src="platformImage"/>
+
+        <span :class="!live && 'grey--text'">{{data.name}}</span>
+
+        <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
+        <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+
+        <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
+      </div>
+
+      <div class="subtitle text-truncate grey--text mt-n1" v-if="live">{{data.title}}</div>
+    </main>
+
+    <aside v-if="live" class="align-content-center-inline text-right ml-2 pr-2" id="viewers">
+
+      <v-icon v-if="data.viewers" color="red">mdi-account</v-icon>
+      <v-icon v-else color="grey">mdi-access-point-off</v-icon>
+
+      {{data.viewers || ''}}
+    </aside>
+
   </div>
 </v-card>
 
@@ -38,6 +71,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 60,
     }
   },
   data() {
@@ -73,22 +111,35 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .title {
-    padding: 0 !important;
-    margin: 0 !important;
 
-    padding-left: 10px !important;
-    padding-top: 4px !important;
+  // Fix left and right pockets at 60px
+  aside {
+    flex: 0 0 60px;
   }
 
-  .offline-title {
-    padding: 0 !important;
-    margin: 0 !important;
-
-    padding-left: 10px !important;
-    padding-top: 14px !important;
+  #viewers {
+    flex: 0 1 auto;
   }
 
+  .subtitle {
+    max-width: 85%;
+  }
+
+  /* Utilities */
+
+  // Prevents line wraps and hides overflow
+  .hide-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  $roundedness: 4px;
+  .rounded-left {
+    border-top-left-radius: $roundedness;
+    border-bottom-left-radius: $roundedness;
+  }
+
+  // Gray out children, lower grayscale amount on hover
   .monochrome {
     & > * {
       transition: all .15s ease-in-out;
@@ -100,28 +151,32 @@ export default {
     }
   }
 
+  // Vertically align all in line
+  .vertical-align-children > * { vertical-align: middle; }
 
-  .subtitle {
-    padding: 0 !important;
-    margin: 0 !important;
+  // Vertically aligns by inserting an empty pseudo class with 100% height,
+  // so that the entire height becomes line height
+  .align-content-center-inline {
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
 
-    margin-left: 70px !important;
-    margin-top: -6px !important;
-
-    max-width: 75%;
-  }
-
-  @media (max-width: 560px) {
-    .subtitle {
-      max-width: 55%;
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
     }
   }
 
-  .viewers {
-    padding: 0 !important;
-    margin: 0 !important;
-
-    padding-right: 10px !important;
-    margin-top: -35px !important;
+  // Start at 0 width, and grow from there.
+  // This avoids overflow in the case that starting width is greater than container width.
+  .initial-width-0 {
+    min-width: 0;
+  }
+  .flex-grow-hsafe {
+    @extend .initial-width-0;
+    flex: 1 0 0;
   }
 </style>
