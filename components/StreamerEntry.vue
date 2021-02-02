@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      defaultAvatar: "/defaultAvatar.png",
+      defaultAvatar: "/defaultAvatar.webp",
     }
   },
   computed: {

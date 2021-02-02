@@ -8,12 +8,11 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    titleTemplate: '%s',
-    title: 'JDANKS army',
+    title: 'Multi-Platform Streamer List - [JDANKS army]',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: 'Keep up to date with your favorite streamers. A list of streams across many platforms, with live status, stream title, viewer count, and more!' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
