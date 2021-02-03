@@ -24,23 +24,30 @@
       />
     </aside>
 
-    <main
-        class="flex-grow-hsafe hide-overflow"
-        :class="live ? 'd-flex flex-column' : 'align-content-center-inline'"
-    >
-      <div class="title align-content-center-inline">
-        <v-img width="18px" contain eager :src="platformImage"/>
+        <main
+            @mouseenter="onHover(true)"
+            @mouseleave="onHover(false)"
+            class="flex-grow-hsafe hide-overflow"
+            :class="live ? 'd-flex flex-column' : 'align-content-center-inline'"
+        >
+          <div class="title align-content-center-inline">
+            <v-img width="18px" contain eager :src="platformImage"/>
 
-        <span :class="!live && 'grey--text'">{{data.name}}</span>
+            <span :class="!live && 'grey--text'">{{data.name}}</span>
 
-        <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
-        <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+            <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
+            <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
 
-        <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
-      </div>
+            <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
+          </div>
 
-      <div class="subtitle text-truncate grey--text mt-n1" v-if="live">{{data.title}}</div>
-    </main>
+          <v-tooltip bottom v-model="hoveredOver" nudge-left="130" open-delay="2000">
+            <template v-slot:activator="{ on, attrs }">
+              <div class="subtitle text-truncate grey--text mt-n1" v-if="live">{{data.title}}</div>
+            </template>
+            <span>{{data.title}}</span>
+          </v-tooltip>
+        </main>
 
     <aside v-if="live" class="align-content-center-inline text-right ml-2 pr-2" id="viewers">
 
@@ -81,6 +88,8 @@ export default {
   data() {
     return {
       defaultAvatar: "/defaultAvatar.webp",
+      hoveredOver: false,
+      hoverDelayId: null,
     }
   },
   computed: {
@@ -105,6 +114,24 @@ export default {
         ['trovo', 'trovo.live/'],
       ]);
       return 'https://' + map.get(this.data.platform) + this.data.userId;
+    }
+  },
+  methods: {
+    onHover(direction) {
+      if(this.hoverDelayId) {
+        clearTimeout(this.hoverDelayId);
+        this.hoverDelayId = null;
+      }
+
+      if(!direction) {
+        this.hoveredOver = false;
+        return;
+      }
+
+      this.hoverDelayId = setTimeout(() => {
+        this.hoveredOver = direction;
+        this.hoverDelayId = null;
+      }, 500);
     }
   }
 }
