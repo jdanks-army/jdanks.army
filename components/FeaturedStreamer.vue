@@ -47,6 +47,8 @@ export default {
     border: solid #26a69a 1px;
     border-radius: 3px;
 
+    z-index: 10;
+
     position: absolute;
 
     width: 100%;

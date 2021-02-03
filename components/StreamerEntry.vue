@@ -20,6 +20,8 @@
       <v-img
           :src="data.avatar || defaultAvatar"
           :width="size" :height="size"
+          :lazy-src="defaultAvatar"
+          style="background-color: #151515"
           class="rounded-left"
       />
     </aside>
@@ -41,7 +43,7 @@
             <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
           </div>
 
-          <v-tooltip bottom v-model="hoveredOver" nudge-left="130" open-delay="2000">
+          <v-tooltip bottom v-if="live" v-model="hoveredOver" nudge-left="130" open-delay="2000">
             <template v-slot:activator="{ on, attrs }">
               <div class="subtitle text-truncate grey--text mt-n1" v-if="live">{{data.title}}</div>
             </template>
