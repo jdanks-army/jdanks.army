@@ -1,5 +1,7 @@
 <template>
   <v-container fluid tag="div">
+    <link href='https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Playfair+Display&display=swap' rel='stylesheet' type='text/css'>
+    <link rel="prefetch" href="https://api.jdanks.army/streams">
 
     <v-row justify="center">
       <v-col class="mt-n5 content" tag="v-card">
