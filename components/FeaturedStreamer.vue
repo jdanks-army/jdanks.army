@@ -5,7 +5,7 @@
     <stream-list-header class="rainbow mt-auto" divider-title="featured stream"/>
 
     <streamer-entry :data="streamer" :live="streamer.live" :unread="true" class="my-5 featured">
-      <div v-for="i in 3" class="ring-animation" :style="`animation-delay: ${0.2 * i}s;`"/>
+      <div v-for="i in 3" class="ring-animation" :style="`animation-delay: ${0.15 * i}s;`"/>
     </streamer-entry>
 
   </v-container>
@@ -72,14 +72,18 @@ export default {
   }
 
   @keyframes ring-out {
-    from, 5%, 95% {
+    from, to, 5% {
       transform: scale(1);
       opacity: 1;
     }
 
-    25%, 95% {
+    25%, 80% {
       opacity: 0;
       transform: scaleX(1.1) scaleY(1.5);
+    }
+
+    80% {
+      transform: scale(1);
     }
   }
 </style>
