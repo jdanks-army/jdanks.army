@@ -37,8 +37,10 @@
 
             <span :class="!live && 'grey--text'">{{data.name}}</span>
 
-            <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
-            <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+            <div>
+              <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
+              <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+            </div>
 
             <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
           </div>
@@ -150,10 +152,6 @@ export default {
     flex: 0 1 auto;
   }
 
-  .subtitle {
-    max-width: 85%;
-  }
-
   /* Utilities */
 
   // Prevents line wraps and hides overflow
@@ -194,8 +192,8 @@ export default {
     }
 
     & > * {
-      display: inline-block;
-      vertical-align: middle;
+      display: inline-block !important;
+      vertical-align: middle !important;
     }
   }
 
