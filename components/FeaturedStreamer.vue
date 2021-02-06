@@ -1,6 +1,6 @@
 <template>
 
-  <v-container fluid>
+  <v-container fluid style="padding: 0">
 
     <stream-list-header class="rainbow mt-auto" divider-title="featured stream"/>
 
