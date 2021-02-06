@@ -31,7 +31,7 @@
 
     <v-card tag="div" class="pa-2 lastUpdated" @click="update" outlined>
       <v-skeleton-loader :loading="loading" type="text" width="200px">
-        Last updated {{ lastUpdated }}
+        Last updated {{ lastUpdatedString }}
       </v-skeleton-loader>
     </v-card>
 
@@ -53,7 +53,8 @@ export default {
   data() {
     return {
       streamer_data: [],
-      lastUpdatedDate: "",
+      lastUpdatedString: "never",
+      lastUpdated: null,
 
       featuredStreamer: null,
 
@@ -62,6 +63,7 @@ export default {
 
       loading: true,
       updateInterval: null,
+      lastUpdatedTextInterval: null,
     };
   },
 
@@ -69,13 +71,7 @@ export default {
 
   async mounted() {
     this.updateInterval = setInterval(this.update, 5 * 60 * 1000);
-  },
-
-  computed: {
-
-    lastUpdated() {
-      return this.timeAgo(this.lastUpdatedDate);
-    }
+    this.lastUpdatedTextInterval = setInterval(() => this.lastUpdatedString = this.timeAgo(this.lastUpdated), 50 * 1000);
   },
 
   methods: {
@@ -110,7 +106,6 @@ export default {
       // 10. January 2017. at 10:20
       return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
     },
-
 
     timeAgo(dateParam) {
       if (!dateParam) {
@@ -164,7 +159,10 @@ export default {
       try {
         this.streamer_data = await this.$axios.$get('https://api.jdanks.army/streams');
         this.filterStreamers();
-        this.lastUpdatedDate = new Date();
+
+        this.lastUpdated = new Date();
+        this.lastUpdatedString = this.timeAgo( this.lastUpdated );
+
       } catch (e) {
         console.error(e);
       }

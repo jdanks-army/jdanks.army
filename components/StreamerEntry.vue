@@ -35,10 +35,12 @@
           <div class="title align-content-center-inline">
             <v-img width="18px" contain eager :src="platformImage"/>
 
-            <span :class="!live && 'grey--text'">{{data.name}}</span>
+            <span :class="!live && 'grey--text'" class="hide-overflow">{{data.name}}</span>
 
-            <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
-            <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+            <div class="d-none d-sm-inline-block">
+              <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
+              <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
+            </div>
 
             <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
           </div>
@@ -150,16 +152,13 @@ export default {
     flex: 0 1 auto;
   }
 
-  .subtitle {
-    max-width: 85%;
-  }
-
   /* Utilities */
 
   // Prevents line wraps and hides overflow
   .hide-overflow {
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   $roundedness: 4px;
