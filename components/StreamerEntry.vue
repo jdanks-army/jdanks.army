@@ -35,9 +35,9 @@
           <div class="title align-content-center-inline">
             <v-img width="18px" contain eager :src="platformImage"/>
 
-            <span :class="!live && 'grey--text'">{{data.name}}</span>
+            <span :class="!live && 'grey--text'" class="hide-overflow">{{data.name}}</span>
 
-            <div>
+            <div class="d-none d-sm-inline-block">
               <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
               <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
             </div>
@@ -158,6 +158,7 @@ export default {
   .hide-overflow {
     overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   $roundedness: 4px;
@@ -192,8 +193,8 @@ export default {
     }
 
     & > * {
-      display: inline-block !important;
-      vertical-align: middle !important;
+      display: inline-block;
+      vertical-align: middle;
     }
   }
 
