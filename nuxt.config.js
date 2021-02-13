@@ -89,7 +89,12 @@ export default {
       ],
       offlineAssets: [
           '/defaultAvatar.webp',
-          '/platforms/*'
+          '/platforms/bitwave.svg',
+          '/platforms/dlive.png',
+          '/platforms/robotstreamer.png',
+          '/platforms/trovo.png',
+          '/platforms/twitch.png',
+          '/platforms/youtube.png',
       ]
     }
   },
