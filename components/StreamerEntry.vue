@@ -106,7 +106,7 @@ export default {
           ['robotstreamer', '/robotstreamer.png'],
           ['trovo', '/trovo.png'],
       ])
-      return map.get(this.data.platform);
+      return '/platforms' + map.get(this.data.platform);
     },
     link() {
       const map = new Map([

@@ -2,3 +2,4 @@ dist
 .nuxt
 node_modules
 .idea
+sw.*

@@ -38,13 +38,71 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/pwa',
   ],
+
+  pwa: {
+    icon: {
+      source: 'static/defaultAvatar.png',
+    },
+    meta: {
+      name: '[JDANKS army]',
+      author: 'dvdrw, et al',
+      description: 'Keep up to date with your favorite streamers. A list of streams across many platforms, with live status, stream title, viewer count, and more!',
+      ogHost: 'jdanks.army',
+      ogImage: true
+    },
+    manifest: {
+      name: 'Multi-Platform Streamer List - [JDANKS army]',
+      short_name: '[JDANKS army]',
+      description: 'Keep up to date with your favorite streamers. A list of streams across many platforms, with live status, stream title, viewer count, and more!',
+      orientation: 'portrait',
+      categories: [ 'entertainment', 'social' ],
+      display: 'standalone',
+    },
+    workbox: {
+      cleanupOutdatedCaches: true,
+      runtimeCaching: [
+        {
+          urlPattern: 'https://fonts.googleapis.com',
+          handler: 'NetworkFirst',
+          method: 'GET',
+          strategyOptions: {
+            cacheName: 'assets',
+            cacheExpiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 1, // ( 1 day ) 1 year
+              purgeOnQuotaError: true,
+            }
+          },
+        },
+        {
+          urlPattern: 'https://fonts.gstatic.com',
+          handler: 'StaleWhileRevalidate',
+          method: 'GET',
+          strategyOptions: {
+            cacheName: 'assets',
+            cacheExpiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 1, // ( 1 day ) 1 year
+              purgeOnQuotaError: true,
+            }
+          },
+        },
+      ],
+      offlineAssets: [
+          '/defaultAvatar.webp',
+          '/platforms/*'
+      ]
+    }
+  },
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     ["nuxt-rfg-icon", { masterPicture: "static/defaultAvatar.png" }],
+    '@nuxtjs/pwa',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
