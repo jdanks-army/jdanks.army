@@ -42,9 +42,6 @@ export default {
   ],
 
   pwa: {
-    icon: {
-      source: 'static/defaultAvatar.png',
-    },
     meta: {
       name: '[JDANKS army]',
       author: 'dvdrw, et al',
