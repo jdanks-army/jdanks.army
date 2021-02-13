@@ -56,6 +56,8 @@ export default {
       orientation: 'portrait',
       categories: [ 'entertainment', 'social' ],
       display: 'standalone',
+      theme_color: '#26A69A',
+      background_color: '#1e1e1e',
     },
     workbox: {
       cleanupOutdatedCaches: true,
