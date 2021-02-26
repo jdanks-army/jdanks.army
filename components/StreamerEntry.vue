@@ -6,7 +6,7 @@
 
     elevation="6"
 
-    color="grey darken-4"
+    color="cardback"
 
     :class="{monochrome: !live}"
     :href="link"
@@ -21,8 +21,7 @@
           :src="data.avatar || defaultAvatar"
           :width="size" :height="size"
           :lazy-src="defaultAvatar"
-          style="background-color: #151515"
-          class="rounded-left"
+          class="rounded-left image-back"
       />
     </aside>
 
@@ -38,19 +37,14 @@
             <span :class="!live && 'grey--text'" class="hide-overflow">{{data.name}}</span>
 
             <div class="d-none d-sm-inline-block">
-              <v-chip v-if="live" x-small pill color="red"> LIVE </v-chip>
+              <v-chip v-if="live" x-small pill color="red" class="white--text"> LIVE </v-chip>
               <v-chip v-else      x-small pill color="grey" outlined> OFFLINE </v-chip>
             </div>
 
             <v-icon v-if="unread" color="warning" class="ml-n1">mdi-circle-medium</v-icon>
           </div>
 
-          <v-tooltip bottom v-if="live" v-model="hoveredOver" nudge-left="130" open-delay="2000">
-            <template v-slot:activator="{ on, attrs }">
-              <div class="subtitle text-truncate grey--text mt-n1" v-if="live">{{data.title}}</div>
-            </template>
-            <span>{{data.title}}</span>
-          </v-tooltip>
+          <div class="subtitle text-truncate accent--text mt-n1" v-if="live">{{data.title}}</div>
         </main>
 
     <aside v-if="live" class="align-content-center-inline text-right ml-2 pr-2" id="viewers">

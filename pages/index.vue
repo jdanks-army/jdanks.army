@@ -6,31 +6,28 @@
 
     <v-row justify="center">
       <v-col class="mt-n5 content" tag="v-card">
-        <v-skeleton-loader
-            type="list-item-avatar-two-line"
-            :loading="loading"
-            :elevation="0"
-            dark
-            :class="{'mt-n1': loading}"
-            transition="v-fade-transition"
-        >
+          <v-container tag="div" class="mt-3">
+            <v-expand-transition>
+              <featured-streamer v-if="featuredStreamer" :streamer="featuredStreamer" key="2"/>
+            </v-expand-transition>
 
-          <v-container tag="div">
-            <featured-streamer v-if="featuredStreamer" :streamer="featuredStreamer"/>
-            <stream-list-group :streamers="online" divider-title="Online streams" header-styling="grey--text"
-                               class="mt-n5"/>
-            <stream-list-group :streamers="offline" divider-title="Offline streams" header-styling="accent--text"/>
+            <stream-list-header header-styling="grey--text" divider-title="Online streams" class="mt-n1 mb-n1"/>
+            <transition name="scroll-x-transition" mode="out-in">
+              <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
+              <stream-list-group :streamers="online" v-else key="1"/>
+            </transition>
+
+            <stream-list-header header-styling="accent--text" divider-title="Offline streams" class="mt-5 mb-n1"/>
+            <transition name="scroll-x-transition" mode="out-in">
+              <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
+              <stream-list-group :streamers="offline" v-else key="1"/>
+            </transition>
           </v-container>
-
-        </v-skeleton-loader>
-
-        <v-skeleton-loader v-for="i in 22" :key="i" type="list-item-avatar-two-line" v-if="loading" :elevation="0"/>
-
       </v-col>
     </v-row>
 
     <v-card tag="div" class="pa-2 lastUpdated" @click="update" outlined>
-      <v-skeleton-loader :loading="loading" type="text" width="200px">
+      <v-skeleton-loader :loading="$fetchState.pending" type="text" width="200px">
         Last updated {{ lastUpdatedString }}
       </v-skeleton-loader>
     </v-card>
@@ -42,11 +39,15 @@
 import StreamListGroup from '~/components/StreamListGroup';
 import StreamerEntry from "../components/StreamerEntry";
 import FeaturedStreamer from "../components/FeaturedStreamer";
+import StreamListGroupSkeleton from "../components/StreamListGroupSkeleton";
+import StreamListHeader from "../components/StreamListHeader";
 
 export default {
   components: {
+    StreamListGroupSkeleton,
     FeaturedStreamer,
     StreamerEntry,
+    StreamListHeader,
     StreamListGroup
   },
 
@@ -61,7 +62,6 @@ export default {
       online: [],
       offline: [],
 
-      loading: true,
       updateInterval: null,
       lastUpdatedTextInterval: null,
     };
@@ -171,7 +171,6 @@ export default {
 
   async fetch() {
     await this.update();
-    this.$nextTick(() => this.loading = false);
   },
 }
 </script>

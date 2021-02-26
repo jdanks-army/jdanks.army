@@ -1,8 +1,5 @@
 <template>
   <v-container fluid v-if="streamers.length">
-    <!--Streams divider-->
-    <stream-list-header :header-styling="headerStyling" :divider-title="dividerTitle"/>
-
     <slot/>
 
     <!--Stream list-->
@@ -21,8 +18,6 @@ export default {
   components: {StreamListHeader},
   props: [
       'streamers',
-      'dividerTitle',
-      'headerStyling'
   ],
   data() {
     return {

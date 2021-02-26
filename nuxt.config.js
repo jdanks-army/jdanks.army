@@ -50,13 +50,13 @@ export default {
       ogImage: true
     },
     manifest: {
-      name: 'Multi-Platform Streamer List - [JDANKS army]',
+      name: '[JDANKS army]',
       short_name: '[JDANKS army]',
       description: 'Keep up to date with your favorite streamers. A list of streams across many platforms, with live status, stream title, viewer count, and more!',
       orientation: 'portrait',
       categories: [ 'entertainment', 'social' ],
       display: 'standalone',
-      theme_color: '#26A69A',
+      theme_color: '#1e1e1e',
       background_color: '#1e1e1e',
     },
     workbox: {
@@ -70,7 +70,7 @@ export default {
             cacheName: 'assets',
             cacheExpiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 1, // ( 1 day ) 1 year
+              maxAgeSeconds: 60 * 60 * 24, // ( 1 day ) 1 year
               purgeOnQuotaError: true,
             }
           },
@@ -83,7 +83,7 @@ export default {
             cacheName: 'assets',
             cacheExpiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 1, // ( 1 day ) 1 year
+              maxAgeSeconds: 60 * 60 * 24, // ( 1 day ) 1 year
               purgeOnQuotaError: true,
             }
           },
@@ -105,7 +105,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    ["nuxt-rfg-icon", { masterPicture: "static/defaultAvatar.png" }],
+    ["nuxt-rfg-icon", { masterPicture: "static/icon.png" }],
     '@nuxtjs/pwa',
   ],
 
@@ -119,10 +119,25 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
+          primary: colors.teal.darken2,
+          accent: colors.grey.darken1,
+          cardback: colors.grey.darken4,
+          'image-back': '#151515',
+          'grey-darken2': colors.grey.darken2,
+          secondary: colors.red.darken3,
+          info: colors.blue.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
+        light: {
+          primary: colors.teal.lighten2,
+          accent: colors.grey.base,
+          cardback: colors.grey.lighten5,
+          'image-back': '#151515',
+          'grey-darken2': colors.grey.darken2,
+          secondary: colors.red.darken3,
+          info: colors.blue.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
