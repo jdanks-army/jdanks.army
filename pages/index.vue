@@ -6,23 +6,25 @@
 
     <v-row justify="center">
       <v-col class="mt-n5 content" tag="v-card">
-          <v-container tag="div" class="mt-3">
-            <v-expand-transition>
-              <featured-streamer v-if="featuredStreamer" :streamer="featuredStreamer" key="2"/>
-            </v-expand-transition>
+        <v-container tag="div" class="mt-3">
+          <v-expand-transition>
+            <featured-streamer v-if="featuredStreamer" :streamer="featuredStreamer" key="2"/>
+          </v-expand-transition>
 
-            <stream-list-header header-styling="grey--text" divider-title="Online streams" class="mt-n1 mb-n1"/>
-            <transition name="scroll-x-transition" mode="out-in">
-              <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
-              <stream-list-group :streamers="online" v-else key="1"/>
-            </transition>
+          <stream-list-header header-styling="grey--text" divider-title="Online streams" class="mt-n1 mb-n1"/>
+          <transition name="scroll-x-transition" mode="out-in">
+            <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
+            <stream-list-group :streamers="online" v-else key="1"/>
+          </transition>
 
-            <stream-list-header header-styling="accent--text" divider-title="Offline streams" class="mt-5 mb-n1"/>
-            <transition name="scroll-x-transition" mode="out-in">
-              <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
-              <stream-list-group :streamers="offline" v-else key="1"/>
-            </transition>
-          </v-container>
+          <stream-list-header header-styling="accent--text" divider-title="Offline streams" class="mt-5 mb-n1"/>
+          <transition name="scroll-x-transition" mode="out-in">
+            <stream-list-group-skeleton v-if="$fetchState.pending" key="0"/>
+            <stream-list-group :streamers="offline" v-else key="1"/>
+          </transition>
+
+          <random-quote class="ma-0 pa-0 mt-4"/>
+        </v-container>
       </v-col>
     </v-row>
 
@@ -41,9 +43,11 @@ import StreamerEntry from "../components/StreamerEntry";
 import FeaturedStreamer from "../components/FeaturedStreamer";
 import StreamListGroupSkeleton from "../components/StreamListGroupSkeleton";
 import StreamListHeader from "../components/StreamListHeader";
+import RandomQuote from "../components/RandomQuote";
 
 export default {
   components: {
+    RandomQuote,
     StreamListGroupSkeleton,
     FeaturedStreamer,
     StreamerEntry,

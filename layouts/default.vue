@@ -35,8 +35,9 @@
 
 <script>
 import Logo from "@/components/Logo";
+import RandomQuote from "../components/RandomQuote";
 export default {
-  components: {Logo},
+  components: {RandomQuote, Logo},
   data () {
     return {
       fixed: false,
