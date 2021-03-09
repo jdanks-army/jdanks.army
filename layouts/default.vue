@@ -12,8 +12,13 @@
         <logo />
       </v-toolbar-title>
       <v-spacer />
+      <img src="/umad.gif"
+           style="height: 170%; width: auto; position: fixed; right: 10px"
+           class="py-1"
+           @click="scroll()"/>
     </v-app-bar>
-    <v-main>
+<!--    <img src="/umad.gif" style="height: 150%; width: auto; position: fixed;" class="py-1"/>-->
+    <v-main class="the-baither-background">
       <v-container>
         <nuxt @updated="u => this.lastUpdated = u" />
       </v-container>
@@ -43,6 +48,21 @@ export default {
       fixed: false,
       lastUpdated: null,
     }
+  },
+
+  methods: {
+    scroll() {
+      window.scroll({top: 0, left: 0, behavior: 'smooth'});
+    }
   }
+
 }
 </script>
+
+<style lang="scss">
+  .the-baither-background {
+    background: url("/umad.gif");
+    background-repeat: repeat;
+    //background-size: 12px;
+  }
+</style>
