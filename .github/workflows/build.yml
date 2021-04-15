@@ -3,6 +3,8 @@ name: Build & Publish Website
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
+    
 
 jobs:
   publish:
