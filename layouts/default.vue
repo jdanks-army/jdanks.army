@@ -61,7 +61,7 @@ export default {
 
 <style lang="scss">
   .the-baither-background {
-    background: url("/umad.gif");
+    background: url("/gaydanks2.jpg");
     background-repeat: repeat;
     //background-size: 12px;
   }
